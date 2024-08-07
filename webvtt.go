@@ -504,7 +504,7 @@ func (s Subtitles) WriteToWebVTT(o io.Writer) (err error) {
 	}
 
 	// Loop through subtitles
-	for index, item := range s.Items {
+	for _, item := range s.Items {
 		// Add comments
 		if len(item.Comments) > 0 {
 			c = append(c, []byte("NOTE ")...)
@@ -516,7 +516,7 @@ func (s Subtitles) WriteToWebVTT(o io.Writer) (err error) {
 		}
 
 		// Add time boundaries
-		c = append(c, []byte(strconv.Itoa(index+1))...)
+		c = append(c, []byte(strconv.Itoa(item.Index))...)
 		c = append(c, bytesLineSeparator...)
 		c = append(c, []byte(formatDurationWebVTT(item.StartAt))...)
 		c = append(c, bytesWebVTTTimeBoundariesSeparator...)
